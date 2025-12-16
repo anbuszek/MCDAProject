@@ -1,4 +1,3 @@
-
 bibentry("Article",
          title        = "Importance and performance in PLS-SEM and NCA: Introducing the combined importance-performance map analysis (cIPMA)",
          author       = c(as.person("Sven Hauff"), as.person("Nicole Franziska Richter"), as.person("Marko Sarstedt"), as.person("Christian M. Ringle")),
