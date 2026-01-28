@@ -47,11 +47,14 @@ Poniżej znajduje się podstawowy przykład użycia pakietu na danych symulowany
 {r example}
 library(DreamySleepR)
 ```r
+library(DreamySleepR)
+
 # 1. Wczytaj dane
 data("mcda_dane_surowe")
 head(mcda_dane_surowe, 3)
-# 2. Przygotuj macierz rozmytą
-macierz <- prepare_mcda_data(
+
+# 2. Przygotuj macierz rozmytą (u Ciebie: przygotowanie_danych / rozmyte_mcda)
+macierz <- przygotowanie_danych(
   data = mcda_dane_surowe,
   alternative_column = "App",
   expert_column = "Expert",
@@ -64,19 +67,28 @@ macierz <- prepare_mcda_data(
   ),
   fuzzy_scale = "triangular"
 )
-# 3. Ranking metodą Fuzzy TOPSIS (Linear)
-wynik_topsis <- fuzzy_topsis_linear(
+
+# jeśli Twoja funkcja nazywa się inaczej, użyj tej wersji:
+# macierz <- rozmyte_mcda(
+#   data = mcda_dane_surowe,
+#   alternative_column = "App",
+#   expert_column = "Expert",
+#   criteria_columns = c("Accuracy","Usability","Compatibility","Analytics","Sleep_Awareness"),
+#   fuzzy_scale = "triangular"
+# )
+
+# 3. Ranking metodą Fuzzy VIKOR (u Ciebie jest plik fuzzy_vikor.R)
+wynik_vikor <- fuzzy_vikor(
   macierz,
   criteria_types = c("max", "max", "max", "max", "max")
 )
-# 4. Ranking metodą Fuzzy MULTIMOORA
-wynik_multimoora <- fuzzy_multimoora(
-  macierz,
-  criteria_types = c("max", "max", "max", "max", "max")
-)
+
+# 4. (Opcjonalnie) meta-ranking (u Ciebie jest plik meta_ranking.R)
+wynik_meta <- meta_ranking(wynik_vikor)
+
 # 5. Wyświetl wyniki
-print(wynik_topsis$results)
-print(wynik_multimoora$results)
+print(wynik_vikor$results)
+print(wynik_meta$results)
 ```
 ## Wizualizacja
 
