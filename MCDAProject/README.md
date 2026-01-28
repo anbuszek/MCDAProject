@@ -46,7 +46,7 @@ Poniżej znajduje się podstawowy przykład użycia pakietu na danych symulowany
 15 ekspertów
 {r example}
 library(DreamySleepR)
-
+```r
 # 1. Wczytaj dane
 data("sleep_apps_data")
 head(sleep_apps_data, 3)
