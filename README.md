@@ -48,11 +48,11 @@ Poniżej znajduje się podstawowy przykład użycia pakietu na danych symulowany
 library(DreamySleepR)
 ```r
 # 1. Wczytaj dane
-data("sleep_apps_data")
-head(sleep_apps_data, 3)
+data("mcda_dane_surowe")
+head(mcda_dane_surowe, 3)
 # 2. Przygotuj macierz rozmytą
 macierz <- prepare_fuzzy_mcda_data(
-  data = sleep_apps_data,
+  data = mcda_dane_surowe,
   alternative_column = "App",
   expert_column = "Expert",
   criteria_columns = c(
