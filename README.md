@@ -51,7 +51,7 @@ library(DreamySleepR)
 data("mcda_dane_surowe")
 head(mcda_dane_surowe, 3)
 # 2. Przygotuj macierz rozmytą
-macierz <- prepare_fuzzy_mcda_data(
+macierz <- prepare_mcda_data(
   data = mcda_dane_surowe,
   alternative_column = "App",
   expert_column = "Expert",
