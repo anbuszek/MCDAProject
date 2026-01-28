@@ -77,3 +77,42 @@ wynik_multimoora <- fuzzy_multimoora(
 # 5. Wyświetl wyniki
 print(wynik_topsis$results)
 print(wynik_multimoora$results)
+```
+## Wizualizacja
+
+Pakiet umożliwia graficzną analizę wyników rankingu:
+```r
+# Wizualizacja wyników (mapa decyzyjna)
+plot(wynik_topsis)
+```
+## Meta-ranking
+
+Wyniki z różnych metod można połączyć w ranking konsensusu, zwiększający stabilność decyzji:
+```r
+meta <- fuzzy_meta_ranking(
+  results_list = list(
+    TOPSIS = wynik_topsis,
+    MULTIMOORA = wynik_multimoora
+  ),
+  method = "borda"
+)
+
+print(meta$ranking)
+```
+## Dokumentacja
+
+Więcej informacji i przykładów:
+
+Vignette:
+vignette("dreamysleepr_guide", package = "DreamySleepR")
+
+Pomoc dla funkcji:
+?fuzzy_topsis_linear, ?fuzzy_multimoora, ?fuzzy_meta_ranking
+
+## Autor
+
+Anna Buszek
+
+## Licencja
+
+GPL-3
