@@ -35,7 +35,7 @@ Pakiet można zainstalować bezpośrednio z GitHuba:
 # install.packages("devtools")
 devtools::install_github("anbuszek/MCDAProject")
 ``` 
-##Szybki Start
+## Szybki Start
 
 Poniżej znajduje się podstawowy przykład użycia pakietu na danych symulowanych zgodnych z założeniami pracy:
 
