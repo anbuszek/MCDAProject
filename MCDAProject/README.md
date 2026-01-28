@@ -3,175 +3,148 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-**DreamySleepR** to pakiet w języku **R** do oceny i rankingu aplikacji do monitorowania snu dla studentów z wykorzystaniem metod wielokryterialnych w środowisku rozmytym (Fuzzy MCDA).
+**DreamySleepR** to pakiet w języku R służący do oceny i rankingu aplikacji do monitorowania snu dla studentów z wykorzystaniem metod wielokryterialnych w środowisku rozmytym (Fuzzy MCDA).
 
-Pakiet został przygotowany na potrzeby pracy licencjackiej:
+Pakiet stanowi narzędzie badawcze opracowane na potrzeby pracy licencjackiej pt.:
 
 **„DreamySleepR: Pakiet R do oceny i rankingu aplikacji do monitorowania snu studentów z wykorzystaniem metod FuzzyTOPSIS i FuzzyMULTIMOORA.”**
 
-W projekcie wykorzystywane są dane symulowane (dummy variables) obejmujące:
-- **3 alternatywy** (aplikacje do monitorowania snu),
-- **5 kryteriów** oceny,
-- **15 ekspertów**.
+Umożliwia on pełną ścieżkę analityczną: od danych eksperckich, przez ich agregację w postaci rozmytej, aż po wyznaczenie rankingów metodami **FuzzyTOPSISLinear**, **FuzzyMULTIMOORA** oraz ich **meta-ranking (konsensus)**.
 
 ---
 
 ## Funkcje pakietu
 
-Pakiet **DreamySleepR** umożliwia:
+Pakiet **DreamySleepR** oferuje:
 
-- przygotowanie danych do analizy MCDA w ujęciu rozmytym (fuzzy)
-- agregację ocen wielu ekspertów do wspólnej macierzy decyzyjnej
-- ranking alternatyw metodą **FuzzyTOPSISLinear**
-- ranking alternatyw metodą **FuzzyMULTIMOORA**
-- wizualizację wyników rankingów i porównań metod
-- tworzenie **meta-rankingu** (konsensusu) z wielu metod
+- przygotowanie i agregację **rozmytych ocen ekspertów** (np. 15 ekspertów)
+- obsługę danych symulowanych (dummy variables) dla:
+  - 3 alternatyw (aplikacje do monitorowania snu)
+  - 5 kryteriów oceny
+- **FuzzyTOPSISLinear** – ranking alternatyw w środowisku rozmytym
+- **FuzzyMULTIMOORA** – ranking alternatyw metodą MULTIMOORA w ujęciu rozmytym
+- **wizualizację wyników** rankingów i porównań
+- **meta-ranking** – agregację wyników wielu metod w jeden ranking konsensusu
 
 ---
 
 ## Instalacja
 
-Wersja deweloperska z GitHub:
+Pakiet można zainstalować bezpośrednio z GitHuba:
 
 ```r
 # install.packages("devtools")
 devtools::install_github("TwojUser/DreamySleepR")
-Jeśli pakiet korzysta z metod dostępnych w FuzzyMCDM:
-
-r
-Skopiuj kod
-install.packages("FuzzyMCDM")
-Szybki start
-Poniżej minimalny przykład użycia na danych demonstracyjnych.
-
-1) Wczytanie danych
-r
-Skopiuj kod
 library(DreamySleepR)
 
+# Load example (simulated) dataset: 3 apps, 5 criteria, 15 experts
 data("sleep_apps_dummy")
-sleep_apps_dummy
-Przykładowe alternatywy (aplikacje):
 
-Sleep Cycle
+# Inspect data
+head(sleep_apps_dummy, 10)
 
-Pillow
-
-Sleep as Android
-
-Przykładowe kryteria:
-
-accuracy – dokładność pomiaru
-
-usability – intuicyjność obsługi
-
-compatibility – zgodność systemowa
-
-analytics – funkcje analityczne
-
-awareness – wpływ na świadomość jakości snu
-
-2) Przygotowanie rozmytej macierzy decyzyjnej (agregacja ekspertów)
-r
-Skopiuj kod
+# Prepare aggregated fuzzy decision matrix
 fuzzy_matrix <- prepare_sleep_mcda(
   sleep_apps_dummy,
   alternative_col = "app",
   expert_col = "expert"
 )
-3) Ranking metodą FuzzyTOPSISLinear
-r
-Skopiuj kod
-topsis_result <- run_fuzzy_topsis(
+
+# Define criteria types (all benefits in this thesis setup)
+criteria_types <- c("max", "max", "max", "max", "max")
+
+# Run FuzzyTOPSISLinear
+topsis_res <- run_fuzzy_topsis(
   fuzzy_matrix,
-  criteria_types = c("max", "max", "max", "max", "max")
+  criteria_types = criteria_types
 )
 
-topsis_result$ranking
-4) Ranking metodą FuzzyMULTIMOORA
-r
-Skopiuj kod
-multimoora_result <- run_fuzzy_multimoora(
+# Run FuzzyMULTIMOORA
+multimoora_res <- run_fuzzy_multimoora(
   fuzzy_matrix,
-  criteria_types = c("max", "max", "max", "max", "max")
+  criteria_types = criteria_types
 )
 
-multimoora_result$ranking
-Wizualizacja
-Pakiet pozwala na wizualizację rankingów oraz porównanie metod.
+# Show rankings
+topsis_res$ranking
+multimoora_res$ranking
+library(DreamySleepR)
 
-r
-Skopiuj kod
-# Ranking TOPSIS
-plot_ranking(topsis_result)
+data("sleep_apps_dummy")
 
-# Ranking MULTIMOORA
-plot_ranking(multimoora_result)
+fuzzy_matrix <- prepare_sleep_mcda(
+  sleep_apps_dummy,
+  alternative_col = "app",
+  expert_col = "expert"
+)
 
-# Porównanie metod (np. zgodność rang)
+criteria_types <- c("max", "max", "max", "max", "max")
+
+topsis_res <- run_fuzzy_topsis(
+  fuzzy_matrix,
+  criteria_types = criteria_types
+)
+
+multimoora_res <- run_fuzzy_multimoora(
+  fuzzy_matrix,
+  criteria_types = criteria_types
+)
+
+# Ranking plots
+plot_ranking(topsis_res)
+plot_ranking(multimoora_res)
+
+# Compare rankings across methods
 plot_method_comparison(
   list(
-    TOPSIS = topsis_result,
-    MULTIMOORA = multimoora_result
+    TOPSIS = topsis_res,
+    MULTIMOORA = multimoora_res
   )
 )
-Jeśli generujesz obrazki do README, umieść je w man/figures/
-i odwołuj się do nich np.:
+library(DreamySleepR)
 
-![](man/figures/README-ranking.png)
+data("sleep_apps_dummy")
 
-Meta-ranking
-Meta-ranking agreguje wyniki wielu metod w jeden ranking konsensusu, co zwiększa stabilność oceny.
+fuzzy_matrix <- prepare_sleep_mcda(
+  sleep_apps_dummy,
+  alternative_col = "app",
+  expert_col = "expert"
+)
 
-r
-Skopiuj kod
-meta_result <- meta_ranking(
+criteria_types <- c("max", "max", "max", "max", "max")
+
+topsis_res <- run_fuzzy_topsis(
+  fuzzy_matrix,
+  criteria_types = criteria_types
+)
+
+multimoora_res <- run_fuzzy_multimoora(
+  fuzzy_matrix,
+  criteria_types = criteria_types
+)
+
+# Consensus ranking (example: mean rank aggregation)
+meta_res <- meta_ranking(
   list(
-    TOPSIS = topsis_result,
-    MULTIMOORA = multimoora_result
+    TOPSIS = topsis_res,
+    MULTIMOORA = multimoora_res
   ),
   method = "mean_rank"
 )
 
-meta_result$ranking
-Przykładowe metody agregacji (zależnie od implementacji):
-
-średnia ranga (mean_rank)
-
-mediana rang (median_rank)
-
-Borda count (borda) – opcjonalnie
-
-Dokumentacja
-Szczegółowa dokumentacja jest dostępna w:
-
-Vignette:
-
-r
-Skopiuj kod
+# Display meta-ranking
+meta_res$ranking
+# Package vignette (if available)
 vignette("dreamysleepr", package = "DreamySleepR")
-Pomoc do kluczowych funkcji:
 
+# Function references
 ?prepare_sleep_mcda
-
 ?run_fuzzy_topsis
-
 ?run_fuzzy_multimoora
-
 ?meta_ranking
-
 ?plot_ranking
-
-Autorzy
-Twoje Imię i Nazwisko
-
-Licencja
-GPL-3
-
-yaml
-Skopiuj kod
-
----
-
-Jeśli chcesz, podeślij **listę realnych funkcji z Twojego pakietu** (np. wynik `ls("package:DreamySleepR")` albo nazwy plików z folderu `R/`), a ja w 2 minuty zrobię wersję README **idealnie zgodną z Twoim kodem** (bez placeholderów).
-::contentReference[oaicite:0]{index=0}
+?plot_method_comparison
+c(
+  "Anna Buszek"
+)
+"GPL-3"
