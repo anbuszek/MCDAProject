@@ -31,10 +31,10 @@ Pakiet **DreamySleepR** oferuje:
 ## Instalacja
 
 Pakiet można zainstalować bezpośrednio z GitHuba:
-
+```r
 # install.packages("devtools")
 devtools::install_github("anbuszek/MCDAProject")
-
+``` 
 ##Szybki Start
 
 Poniżej znajduje się podstawowy przykład użycia pakietu na danych symulowanych zgodnych z założeniami pracy:
