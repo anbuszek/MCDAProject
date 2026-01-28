@@ -1,0 +1,111 @@
+install.packages("devtools")
+devtools::document()
+library(tidyverse)
+# 0.1: Instalacja i ładowanie pakietów
+# Będziemy potrzebować 'tidyverse' do ogólnej pracy na danych
+if (!require(tidyverse)) install.packages("tidyverse")
+library(tidyverse)
+# Będziemy potrzebować 'remotes' do instalacji konkretnej wersji pakietu
+if (!require(remotes)) install.packages("remotes")
+remotes::install_version(
+"FuzzyMCDM",
+version = "1.1",
+repos   = "https://cran.r-project.org"
+)
+install.packages('gtools')
+library(FuzzyMCDM)
+library(FuzzyMCDM)
+install.packages(
+"C:/Users/twoje_imie/Downloads/FuzzyMCDM_1.1.tar.gz",
+repos = NULL,
+type = "source"
+)
+library(tidyverse)
+> library(tidyverse)
+library(tidyverse)
+ls()
+FuzzyVIKOR <- function(...) {...}
+FuzzyTOPSISLinear <- function(...) {...}
+FuzzyMMOORA <- function(...) {...}
+FuzzyWASPAS <- function(...) {...}
+MetaRanking <- function(...) {...}
+TheoryOfDominance <- function(...) {...}
+FuzzyVIKOR <- function(...) {...}
+FuzzyTOPSISLinear <- function(...) {...}
+FuzzyMMOORA <- function(...) {...}
+FuzzyWASPAS <- function(...) {...}
+MetaRanking <- function(...) {...}
+TheoryOfDominance <- function(...) {...}
+FuzzyVIKOR <- function(...) {...}
+FuzzyTOPSISLinear <- function(...) {...}
+FuzzyMMOORA <- function(...) {...}
+FuzzyWASPAS <- function(...) {...}
+MetaRanking <- function(...) {...}
+TheoryOfDominance <- function(...) {...}
+# --- Definicje TFN (skala lingwistyczna) ---
+BN <- c(1, 1, 3)
+N  <- c(1, 3, 5)
+S  <- c(3, 5, 7)
+W  <- c(5, 7, 9)
+BW <- c(7, 9, 9)
+# --- Macierz decyzyjna: 3 alternatywy x 3 kryteria (TFN) ---
+#        C1(l,m,u), C2(l,m,u), C3(l,m,u)
+A1 <- c(W,  S,  N)    # Alpha
+A2 <- c(N,  W,  W)    # Beta
+A3 <- c(S,  S,  BW)   # Gamma
+decision_matrix <- rbind(A1, A2, A3)
+# --- Wektor orientacji kryteriów ---
+cb_vector <- c("min", "max", "max")
+# --- Wektor wag (równe, rozmyte 1/3) ---
+w_C1 <- c(1/3, 1/3, 1/3)
+w_C2 <- c(1/3, 1/3, 1/3)
+w_C3 <- c(1/3, 1/3, 1/3)
+weights_vector <- c(w_C1, w_C2, w_C3)
+# sprawdź, co jest w środowisku
+ls()
+# kształt macierzy decyzyjnej: powinno wyjść 3 wiersze, 9 kolumn
+dim(decision_matrix)
+# podgląd macierzy
+decision_matrix
+# wektor orientacji
+cb_vector
+# długość i zawartość wektora wag (powinno być 9)
+length(weights_vector)
+weights_vector
+if (!require(remotes)) install.packages("remotes")
+remotes::install_github("jakub-tomczak/BWM")
+library(BWM)
+############################
+# Ćwiczenie 2 – „BWM” bez pakietu
+############################
+# wagi „ostre” zgodne z ekspertem:
+# C2 (Wsparcie) – najlepsze, C3 (Łatwość) – najgorsze
+crisp_w <- c(
+C1_Koszt   = 0.25,
+C2_Wsparcie = 0.50,
+C3_Latwosc  = 0.25
+)
+# fuzzyfikacja (l = m = u)
+w_C1_bwm <- c(crisp_w["C1_Koszt"],    crisp_w["C1_Koszt"],    crisp_w["C1_Koszt"])
+w_C2_bwm <- c(crisp_w["C2_Wsparcie"], crisp_w["C2_Wsparcie"], crisp_w["C2_Wsparcie"])
+w_C3_bwm <- c(crisp_w["C3_Latwosc"],  crisp_w["C3_Latwosc"],  crisp_w["C3_Latwosc"])
+weights_vector_bwm <- c(w_C1_bwm, w_C2_bwm, w_C3_bwm)
+print("Nowy wektor wag (pseudo-BWM):")
+print(weights_vector_bwm)
+bibentry("Article",
+title        = "Necessary Condition Analysis (NCA): Logic and Methodology of 'Necessary but not Sufficient' Causality",
+author       = as.person("Jan Dul"),
+journal      = "Organizational Research Methods",
+year         = "2016",
+volume       = "19",
+number       = "1",
+pages        = "10-52",
+doi          = "10.1177/1094428115584005",
+header       = "This package also relies on the Necessary Condition Analysis (NCA) method:"
+)
+devtools::document()
+devtools::document()
+getwd()
+devtools::document()
+install.packages("devtools")
+install.packages("devtools")
