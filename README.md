@@ -53,42 +53,35 @@ library(DreamySleepR)
 data("mcda_dane_surowe")
 head(mcda_dane_surowe, 3)
 
-# 2. Przygotuj macierz rozmytą (u Ciebie: przygotowanie_danych / rozmyte_mcda)
-macierz <- przygotowanie_danych(
-  data = mcda_dane_surowe,
-  alternative_column = "App",
-  expert_column = "Expert",
-  criteria_columns = c(
+# 2. Zdefiniuj składnię MCDA
+skladnia <- list(
+  alternative = "App",
+  expert = "Expert",
+  criteria = c(
     "Accuracy",
     "Usability",
     "Compatibility",
     "Analytics",
     "Sleep_Awareness"
-  ),
-  fuzzy_scale = "triangular"
+  )
 )
 
-# jeśli Twoja funkcja nazywa się inaczej, użyj tej wersji:
-# macierz <- rozmyte_mcda(
-#   data = mcda_dane_surowe,
-#   alternative_column = "App",
-#   expert_column = "Expert",
-#   criteria_columns = c("Accuracy","Usability","Compatibility","Analytics","Sleep_Awareness"),
-#   fuzzy_scale = "triangular"
-# )
+# 3. Przygotuj dane MCDA (ZGODNIE Z TWOJĄ FUNKCJĄ)
+macierz <- przygotuj_dane_mcda(
+  dane = mcda_dane_surowe,
+  skladnia = skladnia,
+  kolumna_alternatyw = "App",
+  funkcja_agregacji = mean
+)
 
-# 3. Ranking metodą Fuzzy VIKOR (u Ciebie jest plik fuzzy_vikor.R)
+# 4. Ranking metodą Fuzzy VIKOR
 wynik_vikor <- fuzzy_vikor(
   macierz,
   criteria_types = c("max", "max", "max", "max", "max")
 )
 
-# 4. (Opcjonalnie) meta-ranking (u Ciebie jest plik meta_ranking.R)
-wynik_meta <- meta_ranking(wynik_vikor)
-
 # 5. Wyświetl wyniki
 print(wynik_vikor$results)
-print(wynik_meta$results)
 ```
 ## Wizualizacja
 
